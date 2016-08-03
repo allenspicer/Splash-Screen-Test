@@ -82,7 +82,7 @@ extension AnimatedULogoView {
   private func generateCircleLayer()->CAShapeLayer {
     let layer = CAShapeLayer()
     layer.lineWidth = radius
-    layer.path = UIBezierPath(arcCenter: CGPointZero, radius: radius/2, startAngle: -CGFloat(M_PI_2), endAngle: CGFloat(3*M_PI_2), clockwise: true).CGPath
+    layer.path = UIBezierPath(arcCenter: CGPointZero, radius: radius/2, startAngle: CGFloat(M_PI_2), endAngle: -CGFloat(3*M_PI_2), clockwise: true).CGPath
     layer.strokeColor = UIColor.whiteColor().CGColor
     layer.fillColor = UIColor.clearColor().CGColor
     return layer
@@ -122,6 +122,12 @@ extension AnimatedULogoView {
   }
   
   private func animateCircleLayer() {
+    // strokeEnd
+    let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
+    strokeEndAnimation.timingFunction = strokeEndTimingFunction
+    strokeEndAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+    strokeEndAnimation.values = [0.0, 1.0]
+    strokeEndAnimation.keyTimes = [0.0, 1.0]
   }
   
   private func animateLineLayer() {
