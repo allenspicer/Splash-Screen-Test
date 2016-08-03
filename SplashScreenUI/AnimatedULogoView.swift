@@ -49,8 +49,8 @@ public class AnimatedULogoView: UIView {
     maskLayer = generateMaskLayer()
     
 //    layer.mask = maskLayer
-    layer.addSublayer(circleLayer)
-    layer.addSublayer(lineLayer)
+//    layer.addSublayer(circleLayer)
+//    layer.addSublayer(lineLayer)
 //    layer.addSublayer(squareLayer)
   }
   
@@ -60,7 +60,7 @@ public class AnimatedULogoView: UIView {
     
 //    animateMaskLayer()
 //    animateCircleLayer()
-    animateLineLayer()
+//    animateLineLayer()
 //    animateSquareLayer()
   }
   
@@ -119,6 +119,32 @@ extension AnimatedULogoView {
 extension AnimatedULogoView {
   
   private func animateMaskLayer() {
+    // bounds
+    let boundsAnimation = CABasicAnimation(keyPath: "bounds")
+    boundsAnimation.fromValue = NSValue(CGRect: CGRect(x: 0.0, y: 0.0, width: radius * 2.0, height: radius * 2))
+    boundsAnimation.toValue = NSValue(CGRect: CGRect(x: 0.0, y: 0.0, width: 2.0/3.0 * squareLayerLength, height: 2.0/3.0 * squareLayerLength))
+    boundsAnimation.duration = kAnimationDurationDelay
+    boundsAnimation.beginTime = kAnimationDuration - kAnimationDurationDelay
+    boundsAnimation.timingFunction = circleLayerTimingFunction
+    
+    // cornerRadius
+    let cornerRadiusAnimation = CABasicAnimation(keyPath: "cornerRadius")
+    cornerRadiusAnimation.beginTime = kAnimationDuration - kAnimationDurationDelay
+    cornerRadiusAnimation.duration = kAnimationDurationDelay
+    cornerRadiusAnimation.fromValue = radius
+    cornerRadiusAnimation.toValue = 2
+    cornerRadiusAnimation.timingFunction = circleLayerTimingFunction
+    
+    // Group
+    let groupAnimation = CAAnimationGroup()
+    groupAnimation.removedOnCompletion = false
+    groupAnimation.fillMode = kCAFillModeBoth
+    groupAnimation.beginTime = beginTime
+    groupAnimation.repeatCount = Float.infinity
+    groupAnimation.duration = kAnimationDuration
+    groupAnimation.animations = [boundsAnimation, cornerRadiusAnimation]
+    groupAnimation.timeOffset = startTimeOffset
+    maskLayer.addAnimation(groupAnimation, forKey: "looping")
   }
   
   private func animateCircleLayer() {
@@ -183,5 +209,34 @@ extension AnimatedULogoView {
   }
   
   private func animateSquareLayer() {
+    // bounds
+    let b1 = NSValue(CGRect: CGRect(x: 0.0, y: 0.0, width: 2.0/3.0 * squareLayerLength, height: 2.0/3.0  * squareLayerLength))
+    let b2 = NSValue(CGRect: CGRect(x: 0.0, y: 0.0, width: squareLayerLength, height: squareLayerLength))
+    let b3 = NSValue(CGRect: CGRectZero)
+    
+    let boundsAnimation = CAKeyframeAnimation(keyPath: "bounds")
+    boundsAnimation.values = [b1, b2, b3]
+    boundsAnimation.timingFunctions = [fadeInSquareTimingFunction, squareLayerTimingFunction]
+    boundsAnimation.duration = kAnimationDuration
+    boundsAnimation.keyTimes = [0, 1.0-kAnimationDurationDelay/kAnimationDuration, 1.0]
+    
+    // backgroundColor
+    let backgroundColorAnimation = CABasicAnimation(keyPath: "backgroundColor")
+    backgroundColorAnimation.fromValue = UIColor.whiteColor().CGColor
+    backgroundColorAnimation.toValue = UIColor.fuberBlue().CGColor
+    backgroundColorAnimation.timingFunction = squareLayerTimingFunction
+    backgroundColorAnimation.fillMode = kCAFillModeBoth
+    backgroundColorAnimation.beginTime = kAnimationDurationDelay * 2.0 / kAnimationDuration
+    backgroundColorAnimation.duration = kAnimationDuration / (kAnimationDuration - kAnimationDurationDelay)
+    
+    // Group
+    let groupAnimation = CAAnimationGroup()
+    groupAnimation.animations = [boundsAnimation, backgroundColorAnimation]
+    groupAnimation.repeatCount = Float.infinity
+    groupAnimation.duration = kAnimationDuration
+    groupAnimation.removedOnCompletion = false
+    groupAnimation.beginTime = beginTime
+    groupAnimation.timeOffset = startTimeOffset
+    squareLayer.addAnimation(groupAnimation, forKey: "looping")
   }
 }
