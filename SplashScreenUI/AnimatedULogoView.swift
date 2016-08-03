@@ -44,24 +44,21 @@ public class AnimatedULogoView: UIView {
     super.init(frame: frame)
     
     circleLayer = generateCircleLayer()
-    lineLayer = generateLineLayer()
     squareLayer = generateSquareLayer()
     maskLayer = generateMaskLayer()
     
-//    layer.mask = maskLayer
-//    layer.addSublayer(circleLayer)
-//    layer.addSublayer(lineLayer)
-//    layer.addSublayer(squareLayer)
+    layer.mask = maskLayer
+    layer.addSublayer(circleLayer)
+    layer.addSublayer(squareLayer)
   }
   
   public func startAnimating() {
     beginTime = CACurrentMediaTime()
     layer.anchorPoint = CGPointZero
     
-//    animateMaskLayer()
-//    animateCircleLayer()
-//    animateLineLayer()
-//    animateSquareLayer()
+    animateMaskLayer()
+    animateCircleLayer()
+    animateSquareLayer()
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -88,21 +85,6 @@ extension AnimatedULogoView {
     return layer
   }
   
-  private func generateLineLayer()->CAShapeLayer {
-    let layer = CAShapeLayer()
-    layer.position = CGPointZero
-    layer.frame = CGRectZero
-    layer.allowsGroupOpacity = true
-    layer.lineWidth = 5.0
-    layer.strokeColor = UIColor.fuberBlue().CGColor
-    
-    let bezierPath = UIBezierPath()
-    bezierPath.moveToPoint(CGPointZero)
-    bezierPath.addLineToPoint(CGPointMake(0.0, -radius))
-    
-    layer.path = bezierPath.CGPath
-    return layer
-  }
   
   private func generateSquareLayer()->CAShapeLayer {
     let layer = CAShapeLayer()
