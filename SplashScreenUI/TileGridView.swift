@@ -46,7 +46,7 @@ class TileGridView: UIView {
     modelTileView.center = containerView.center
     if let centerTileView = centerTileView {
       // Custom offset needed for UILabel font
-      let center = CGPoint(x: CGRectGetMidX(centerTileView.bounds) + 31, y: CGRectGetMidY(centerTileView.bounds))
+      let center = CGPoint(x: CGRectGetMidX(centerTileView.bounds), y: CGRectGetMidY(centerTileView.bounds))
       logoLabel.center = center
     }
   }
@@ -80,7 +80,7 @@ extension TileGridView {
   
   private func generateLogoLabel()->UILabel {
     let label = UILabel()
-    label.text = "F         BER"
+    label.text = "ONB   ARD"
     label.font = UIFont.systemFontOfSize(50)
     label.textColor = UIColor.whiteColor()
     label.sizeToFit()
@@ -126,8 +126,15 @@ extension TileGridView {
     }
   }
   
-  private func startAnimatingWithBeginTime(beginTime: NSTimeInterval) {
-  }
+    private func startAnimatingWithBeginTime(beginTime: NSTimeInterval) {
+        for tileRows in tileViewRows {
+            for view in tileRows {
+                view.startAnimatingWithDuration(kAnimationDuration, beginTime: beginTime, rippleDelay: 0, rippleOffset: CGPointZero)
+            }
+        }
+    }
+    
+  
   
 }
 

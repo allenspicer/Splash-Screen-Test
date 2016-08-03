@@ -46,7 +46,55 @@ class TileView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func startAnimatingWithDuration(duration: NSTimeInterval, beginTime: NSTimeInterval,    rippleDelay: NSTimeInterval, rippleOffset: CGPoint) {
+  func startAnimatingWithDuration(duration: NSTimeInterval, beginTime: NSTimeInterval,    rippleDelay: NSTimeInterval, rippleOffset: CGPoint)  {
+    let timingFunction = CAMediaTimingFunction(controlPoints: 0.25, 0, 0.2, 1)
+    let linearFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+    let easeOutFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+    let easeInOutTimingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    let zeroPointValue = NSValue(CGPoint: CGPointZero)
+    
+    var animations = [CAAnimation]()
+    
+    if shouldEnableRipple {
+        // Transform.scale
+        let scaleAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
+        scaleAnimation.values = [1, 1, 1.05, 1, 1]
+        scaleAnimation.keyTimes = TileView.rippleAnimationKeyTimes
+        scaleAnimation.timingFunctions = [linearFunction, timingFunction, timingFunction, linearFunction]
+        scaleAnimation.beginTime = 0.0
+        scaleAnimation.duration = duration
+        animations.append(scaleAnimation)
+        
+        // Position
+        let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+        positionAnimation.duration = duration
+        positionAnimation.timingFunctions = [linearFunction, timingFunction, timingFunction, linearFunction]
+        positionAnimation.keyTimes = TileView.rippleAnimationKeyTimes
+        positionAnimation.values = [zeroPointValue, zeroPointValue, NSValue(CGPoint:rippleOffset), zeroPointValue, zeroPointValue]
+        positionAnimation.additive = true
+        
+        animations.append(positionAnimation)
+        
+        // Opacity
+        let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+        opacityAnimation.duration = duration
+        opacityAnimation.timingFunctions = [easeInOutTimingFunction, timingFunction, timingFunction, easeOutFunction, linearFunction]
+        opacityAnimation.keyTimes = [0.0, 0.61, 0.7, 0.767, 0.95, 1.0]
+        opacityAnimation.values = [0.0, 1.0, 0.45, 0.6, 0.0, 0.0]
+        animations.append(opacityAnimation)
+        
+        // Group
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.repeatCount = Float.infinity
+        groupAnimation.fillMode = kCAFillModeBackwards
+        groupAnimation.duration = duration
+        groupAnimation.beginTime = beginTime + rippleDelay
+        groupAnimation.removedOnCompletion = false
+        groupAnimation.animations = animations
+        groupAnimation.timeOffset = kAnimationTimeOffset
+        
+        layer.addAnimation(groupAnimation, forKey: "ripple")
+    }
   }
   
   func stopAnimating() {
