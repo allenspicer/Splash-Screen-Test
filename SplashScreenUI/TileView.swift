@@ -38,7 +38,7 @@ class TileView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-//    layer.contents = TileView.chimesSplashImage.CGImage
+    layer.contents = TileView.chimesSplashImage.CGImage
     layer.shouldRasterize = true
   }
   
