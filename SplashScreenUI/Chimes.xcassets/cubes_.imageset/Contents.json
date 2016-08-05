@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Screen Shot 2016-08-05 at 8.43.30 AM.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "cubes_@2X.png",
       "scale" : "2x"
     },
     {

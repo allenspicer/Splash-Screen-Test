@@ -29,7 +29,7 @@ import UIKit
 public extension UIColor {
   public class func fuberBlue()->UIColor {
     struct C {
-      static var c : UIColor = UIColor(red: 15/255, green: 78/255, blue: 101/255, alpha: 1)
+      static var c : UIColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1)
     }
     return C.c
   }

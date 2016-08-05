@@ -30,6 +30,7 @@ class RootContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+   // showSplashViewController()
     showSplashViewControllerNoPing()
   }
   
@@ -60,7 +61,11 @@ class RootContainerViewController: UIViewController {
     showSplashViewControllerNoPing()
     
     delay(6.00) {
-      self.showMenuNavigationViewController()
+//      self.showMenuNavigationViewController()
+        
+        self.performSegueWithIdentifier("Project_Segue", sender: self)
+        
+        
     }
   }
   
