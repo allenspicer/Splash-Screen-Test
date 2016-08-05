@@ -30,8 +30,8 @@ class RootContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-   // showSplashViewController()
-    showSplashViewControllerNoPing()
+    showSplashViewController()
+   // showSplashViewControllerNoPing()
   }
   
   /// Does not transition to any other UIViewControllers, SplashViewController only
@@ -61,10 +61,11 @@ class RootContainerViewController: UIViewController {
     showSplashViewControllerNoPing()
     
     delay(6.00) {
-//      self.showMenuNavigationViewController()
-        
-        self.performSegueWithIdentifier("Project_Segue", sender: self)
-        
+      self.showMenuNavigationViewController()
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let nav =  storyboard.instantiateViewControllerWithIdentifier("Project_Segue")
+//        nav.willMoveToParentViewController(self)
+//        self.addChildViewController(nav)
         
     }
   }
@@ -74,7 +75,7 @@ class RootContainerViewController: UIViewController {
     guard !(rootViewController is MenuNavigationViewController) else { return }
     
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let nav =  storyboard.instantiateViewControllerWithIdentifier("MenuNavigationController") as! UINavigationController
+    let nav =  storyboard.instantiateViewControllerWithIdentifier("Project_Segue") as! UIViewController
     nav.willMoveToParentViewController(self)
     addChildViewController(nav)
 

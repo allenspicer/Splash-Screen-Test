@@ -32,9 +32,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="EWH-20-Of9" kind="show" identifier="project_segue" id="gMO-ff-XgF"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="giH-hB-eTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -46,7 +43,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="Project_Segue" storyboardName="Main" bundleIdentifier="com.Trial.OnBoard" id="EWH-20-Of9" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLH-Wt-uSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828.5" y="1015"/>
+            <point key="canvasLocation" x="757" y="252"/>
         </scene>
     </scenes>
 </document>
