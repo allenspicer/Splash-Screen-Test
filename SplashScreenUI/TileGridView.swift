@@ -80,7 +80,7 @@ extension TileGridView {
   
   private func generateLogoLabel()->UILabel {
     let label = UILabel()
-    label.text = "ONB        ARD"
+    label.text = "ONB    ARD"
     label.font = UIFont.systemFontOfSize(50)
     label.textColor = UIColor.whiteColor()
     label.sizeToFit()

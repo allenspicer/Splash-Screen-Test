@@ -29,7 +29,7 @@ public class AnimatedULogoView: UIView {
   private let circleLayerTimingFunction   = CAMediaTimingFunction(controlPoints: 0.65, 0.0, 0.40, 1.0)
   private let fadeInSquareTimingFunction = CAMediaTimingFunction(controlPoints: 0.15, 0, 0.85, 1.0)
   
-  private let radius: CGFloat = 20
+  private let radius: CGFloat = 18
   private let squareLayerLength = 30.0
   private let startTimeOffset = 0.7 * kAnimationDuration
   
