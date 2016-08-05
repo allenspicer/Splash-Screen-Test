@@ -34,7 +34,7 @@ public extension UIColor {
     return C.c
   }
   
-  public class func fuberLightBlue()->UIColor {
+  public class func tanColor()->UIColor {
     struct C {
       static var c : UIColor = UIColor(red: 252/255, green: 251/255, blue: 227/255, alpha: 1)
     }
