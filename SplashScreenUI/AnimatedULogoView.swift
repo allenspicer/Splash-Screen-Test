@@ -58,7 +58,7 @@ public class AnimatedULogoView: UIView {
     
     animateMaskLayer()
     animateCircleLayer()
-    animateSquareLayer()
+    //animateSquareLayer()
   }
   
   required public init?(coder aDecoder: NSCoder) {
